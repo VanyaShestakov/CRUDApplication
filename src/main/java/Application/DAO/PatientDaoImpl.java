@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class PatientDaoImpl implements PatientDAO{
+class PatientDaoImpl implements PatientDAO{
 
     @Autowired
     private SessionFactory sessionFactory;

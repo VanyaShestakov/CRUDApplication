@@ -28,7 +28,7 @@ public class Patient {
     private String diagnosis;
 
     @Column(name = "sex")
-    private char sex;
+    private Character sex;
 
     public Patient(String name, String surname, int age, String city, String diagnosis, char sex) {
         this.name = name;
@@ -95,7 +95,7 @@ public class Patient {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(Character sex) {
         this.sex = sex;
     }
 }
