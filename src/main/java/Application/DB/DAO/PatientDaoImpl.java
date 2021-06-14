@@ -20,4 +20,9 @@ class PatientDaoImpl implements PatientDAO{
         return sessionFactory.getCurrentSession().createQuery("from Patient", Patient.class).getResultList();
     }
 
+    @Override
+    public void save(Patient patient) {
+        sessionFactory.getCurrentSession().persist(patient);
+    }
+
 }

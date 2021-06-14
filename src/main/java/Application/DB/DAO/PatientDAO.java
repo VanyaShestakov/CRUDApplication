@@ -7,4 +7,6 @@ import java.util.List;
 public interface PatientDAO {
 
     public List<Patient> getAll();
+
+    public void save(Patient patient);
 }

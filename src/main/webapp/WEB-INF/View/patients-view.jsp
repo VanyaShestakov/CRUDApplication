@@ -37,6 +37,6 @@
     </table>
     <br>
     <br>
-    <button value="Add patient" onclick="window.location.href = 'add-patient'"></button>
+    <button class="add-button"  onclick="window.location.href = 'add-patient'">Add patient</button>
 </body>
 </html>
