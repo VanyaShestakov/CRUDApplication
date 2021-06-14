@@ -39,7 +39,8 @@ public class MainController {
     }
 
     @PostMapping("/save-patient")
-    public String savePatient(@ModelAttribute @Valid Patient patient, BindingResult result) {
+    public String savePatient(@ModelAttribute @Valid Patient patient, BindingResult result,
+                              @ModelAttribute("values") AddPatientFormValues values) {
         if (result.hasErrors()) {
             return "add-patient-view";
         }

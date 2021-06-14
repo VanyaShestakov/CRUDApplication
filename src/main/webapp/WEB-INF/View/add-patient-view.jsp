@@ -18,17 +18,41 @@
         <h1>Add Patient</h1>
         <form:form action="save-patient" method="post" modelAttribute="patient">
             Name:<br><form:input path="name"/>
-            <br><br>
+            <br>
+                <p>
+                    <form:errors style="color:#ff0000" path="name"/>
+                </p>
+            <br>
             Surname:<br><form:input path="surname"/>
-            <br><br>
+            <br>
+                <p>
+                    <form:errors style="color:#ff0000" path="surname"/>
+                </p>
+            <br>
             City:<br><form:input path="city"/>
-            <br><br>
+            <br>
+                <p>
+                    <form:errors style="color:#ff0000" path="city"/>
+                </p>
+            <br>
             Diagnosis:<br><form:input path="diagnosis"/>
-            <br><br>
+            <br>
+                <p>
+                    <form:errors style="color:#ff0000" path="diagnosis"/>
+                </p>
+            <br>
             Sex:<br><form:radiobuttons path="sex" items="${values.sexes}"/>
-            <br><br>
+            <br>
+                <p>
+                    <form:errors style="color:#ff0000" path="sex"/>
+                </p>
+            <br>
             Age:<br><form:input path="age"/>
-            <br><br>
+            <br>
+                <p>
+                    <form:errors style="color:#ff0000" path="age"/>
+                </p>
+            <br>
             <button class="add-button" type="submit">Add</button>
         </form:form>
     </div>

@@ -2,6 +2,7 @@ package Application.DB.Entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "patients")
@@ -13,24 +14,31 @@ public class Patient {
     private int id;
 
     @Column(name = "name")
+    @NotBlank(message = "Enter the name")
     private String name;
 
     @Column(name = "surname")
+    @NotBlank(message = "Enter the surname")
     private String surname;
 
     @Column(name = "age")
+    @Min(value = 0)
+    @Max(value = 110)
     private int age;
 
     @Column(name = "city")
+    @NotBlank(message = "Enter the city")
     private String city;
 
     @Column(name = "diagnosis")
+    @NotBlank(message = "Enter the diagnosis")
     private String diagnosis;
 
     @Column(name = "sex")
-    private Character sex;
+    @NotBlank(message = "Choose the sex")
+    private String sex;
 
-    public Patient(String name, String surname, int age, String city, String diagnosis, Character sex) {
+    public Patient(String name, String surname, int age, String city, String diagnosis, String sex) {
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -91,11 +99,11 @@ public class Patient {
         this.diagnosis = diagnosis;
     }
 
-    public Character getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Character sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 }
