@@ -1,6 +1,6 @@
-package Application.DAO;
+package Application.DB.DAO;
 
-import Application.Entity.Patient;
+import Application.DB.Entity.Patient;
 
 import java.util.List;
 

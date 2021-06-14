@@ -1,4 +1,4 @@
-package Application.Entity;
+package Application.DB.Entity;
 
 
 import javax.persistence.*;

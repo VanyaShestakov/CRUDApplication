@@ -10,8 +10,9 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Стили</title>
-    <link rel="stylesheet" href="../CSS/patients-view-styles.css">
+    <title>Patients</title>
+ <%--   <link rel="stylesheet" href="../CSS/patients-view-styles.css">--%>
+    <link href="<c:url value="/resources/CSS/patients-view-styles.css" />" rel="stylesheet">
 </head>
 <body>
     <table>
@@ -34,5 +35,8 @@
             </tr>
         </c:forEach>
     </table>
+    <br>
+    <br>
+    <button value="Add patient" onclick="window.location.href = 'add-patient'"></button>
 </body>
 </html>

@@ -1,6 +1,6 @@
-package Application.DAO;
+package Application.DB.DAO;
 
-import Application.Entity.Patient;
+import Application.DB.Entity.Patient;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,6 @@ class PatientDaoImpl implements PatientDAO{
     private SessionFactory sessionFactory;
 
     @Override
-    @Transactional
     public List<Patient> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Patient", Patient.class).getResultList();
     }
