@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: IvanT
@@ -10,22 +11,27 @@
 <html>
 <head>
     <title>Add patient</title>
+    <link href="<c:url value="/resources/CSS/patients-view-styles.css" />" rel="stylesheet">
 </head>
 <body>
-    <form:form action="save-patient" method="post" modelAttribute="patient">
-        Name: <form:input path="name"/>
-        <br><br>
-        Surname: <form:input path="surname"/>
-        <br><br>
-        City: <form:input path="city"/>
-        <br><br>
-        Diagnosis: <form:input path="diagnosis"/>
-        <br><br>
-        Sex: <form:radiobuttons path="sex" items="${values.sexes}"/>
-        <br><br>
-        Age: <form:input path="age"/>
-        <br><br>
-        <input type="submit" value="add">
-    </form:form>
+    <div align="center">
+        <h1>Add Patient</h1>
+        <form:form action="save-patient" method="post" modelAttribute="patient">
+            Name:<br><form:input path="name"/>
+            <br><br>
+            Surname:<br><form:input path="surname"/>
+            <br><br>
+            City:<br><form:input path="city"/>
+            <br><br>
+            Diagnosis:<br><form:input path="diagnosis"/>
+            <br><br>
+            Sex:<br><form:radiobuttons path="sex" items="${values.sexes}"/>
+            <br><br>
+            Age:<br><form:input path="age"/>
+            <br><br>
+            <button class="add-button" type="submit">Add</button>
+        </form:form>
+    </div>
+
 </body>
 </html>

@@ -15,28 +15,34 @@
     <link href="<c:url value="/resources/CSS/patients-view-styles.css" />" rel="stylesheet">
 </head>
 <body>
-    <table>
-        <tr>
-            <th>name</th>
-            <th>surname</th>
-            <th>age</th>
-            <th>city</th>
-            <th>diagnosis</th>
-            <th>sex</th>
-        </tr>
-        <c:forEach var="item" items="${patients}">
+    <div align="center">
+        <h1>Patient Details</h1>
+        <button class="add-button"  onclick="window.location.href = 'add-patient'">Add patient</button>
+        <button class="delete-button"  onclick="window.location.href = 'add-patient'">Delete patient</button>
+        <button class="update-button"  onclick="window.location.href = 'add-patient'">Update patient</button>
+        <br><br>
+        <table>
             <tr>
-                <td>${item.name}</td>
-                <td>${item.surname}</td>
-                <td>${item.age}</td>
-                <td>${item.city}</td>
-                <td>${item.diagnosis}</td>
-                <td>${item.sex}</td>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Diagnosis</th>
+                <th>Sex</th>
             </tr>
-        </c:forEach>
-    </table>
-    <br>
-    <br>
-    <button class="add-button"  onclick="window.location.href = 'add-patient'">Add patient</button>
+            <c:forEach var="item" items="${patients}">
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.surname}</td>
+                    <td>${item.age}</td>
+                    <td>${item.city}</td>
+                    <td>${item.diagnosis}</td>
+                    <td>${item.sex}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+
+
 </body>
 </html>
