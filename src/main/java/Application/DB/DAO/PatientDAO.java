@@ -14,4 +14,6 @@ public interface PatientDAO {
 
     public void update(Patient patient);
 
+    public void delete(Patient patient);
+
 }

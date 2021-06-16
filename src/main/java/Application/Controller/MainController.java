@@ -2,17 +2,16 @@ package Application.Controller;
 
 import Application.DB.Entity.Patient;
 import Application.DB.Service.PatientService;
-import Application.FormValues.FormValues;
+import Application.Model.FormValues;
 import Application.Model.PatientId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @Controller
 public class MainController {
@@ -49,14 +48,25 @@ public class MainController {
     }
 
     @GetMapping("/choose-patient")
-    public String showUpdatePatientView(Model model){
+    public String showChoosePatientView(@RequestParam("operation") String operation, Model model){
+        model.addAttribute("operation", operation);
         model.addAttribute("fullNames", patientService.getFullNames());
         model.addAttribute("patientId", new PatientId());
         return "choose-patient-view";
     }
 
-    @PostMapping("/change-patient")
-    public String showChangePatientView(@ModelAttribute("choice") PatientId id, Model model) {
+
+
+    @RequestMapping("/select-patient")
+    public String showChangePatientView(@ModelAttribute("patientId") PatientId id,
+                                        @RequestParam("operation") String operation, Model model) {
+        System.out.println(id.getId());
+        System.out.println(operation);
+        if (operation.equals("Delete")){
+            Patient patient = patientService.getPatientById(id.getId());
+            patientService.deletePatient(patient);
+            return "redirect:/patients";
+        }
         model.addAttribute("patient", patientService.getPatientById(id.getId()));
         model.addAttribute("values", new FormValues());
         return "change-patient-view";
@@ -64,7 +74,7 @@ public class MainController {
 
     @PostMapping("/save-patient-changes")
     public String savePatientChanges(@ModelAttribute @Valid Patient patient, BindingResult result,
-                              @ModelAttribute("values") FormValues values) {
+                                     @ModelAttribute("values") FormValues values) {
         if (result.hasErrors()) {
             return "change-patient-view";
         }

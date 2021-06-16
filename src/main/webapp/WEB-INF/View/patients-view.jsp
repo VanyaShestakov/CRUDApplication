@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: IvanT
@@ -17,9 +18,15 @@
 <body>
     <div align="center">
         <h1>Patient Details</h1>
-        <button class="add-button"  onclick="window.location.href = 'add-patient'">Add patient</button>
-        <button class="delete-button"  onclick="window.location.href = 'add-patient'">Delete patient</button>
-        <button class="update-button"  onclick="window.location.href = 'choose-patient'">Update patient</button>
+        <c:url var="deleteButton" value="/choose-patient">
+            <c:param name="operation" value="Delete"/>
+        </c:url>
+        <c:url var="updateButton" value="/choose-patient">
+            <c:param name="operation" value="Update"/>
+        </c:url>
+        <input class="add-button" type="button" onclick="window.location.href = 'add-patient'" value="Add patient">
+        <input class="delete-button" type="button" onclick="window.location.href = '${deleteButton}'" value="Delete patient">
+        <input class="update-button" type="button" onclick="window.location.href = '${updateButton}'" value="Update patient">
         <br><br>
         <table>
             <tr>

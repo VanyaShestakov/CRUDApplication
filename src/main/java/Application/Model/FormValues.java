@@ -1,4 +1,4 @@
-package Application.FormValues;
+package Application.Model;
 
 import java.util.HashMap;
 import java.util.List;

@@ -16,13 +16,17 @@
 </head>
 <body>
 <div align="center">
-    <h1>Update Patient</h1>
+    <h1>Choose Patient</h1>
 
-    <form:form method="post" action="change-patient" modelAttribute="patientId">
+    <c:url var="select" value="select-patient">
+        <c:param name="operation" value="${operation}"/>
+    </c:url>
+
+    <form:form action="${select}" modelAttribute="patientId">
         <form:select path="id">
             <form:options items="${fullNames}"/>
         </form:select>
-        <button class="Update-button" type="submit">Select</button>
+        <input class="update-button" type="submit" value="${operation}">
     </form:form>
 
 </div>

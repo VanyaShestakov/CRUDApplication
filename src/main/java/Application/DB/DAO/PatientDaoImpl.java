@@ -35,7 +35,10 @@ class PatientDaoImpl implements PatientDAO{
         sessionFactory.getCurrentSession().update(patient);
     }
 
-
+    @Override
+    public void delete(Patient patient) {
+        sessionFactory.getCurrentSession().delete(patient);
+    }
 
 
 }
