@@ -16,18 +16,27 @@
 </head>
 <body>
 <div align="center">
-    <h1>Choose Patient</h1>
+    <h1>Select Patient</h1>
 
-    <c:url var="select" value="select-patient">
-        <c:param name="operation" value="${operation}"/>
-    </c:url>
 
-    <form:form action="${select}" modelAttribute="patientId">
-        <form:select path="id">
-            <form:options items="${fullNames}"/>
-        </form:select>
-        <input class="update-button" type="submit" value="${operation}">
-    </form:form>
+    <c:if test="${operation == 'Delete'}">
+        <form:form method="post" action="delete-patient" modelAttribute="patientId">
+            <form:select path="id">
+                <form:options items="${fullNames}"/>
+            </form:select>
+            <button class="Update-button" type="submit">Select</button>
+        </form:form>
+    </c:if>
+    <c:if test="${operation == 'Update'}">
+        <form:form method="get" action="change-patient" modelAttribute="patientId">
+            <form:select path="id">
+                <form:options items="${fullNames}"/>
+            </form:select>
+            <button class="Update-button" type="submit">Select</button>
+        </form:form>
+    </c:if>
+
+
 
 </div>
 

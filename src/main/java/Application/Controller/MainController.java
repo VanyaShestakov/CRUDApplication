@@ -55,21 +55,18 @@ public class MainController {
         return "choose-patient-view";
     }
 
-
-
-    @RequestMapping("/select-patient")
-    public String showChangePatientView(@ModelAttribute("patientId") PatientId id,
-                                        @RequestParam("operation") String operation, Model model) {
-        System.out.println(id.getId());
-        System.out.println(operation);
-        if (operation.equals("Delete")){
-            Patient patient = patientService.getPatientById(id.getId());
-            patientService.deletePatient(patient);
-            return "redirect:/patients";
-        }
+    @GetMapping("/change-patient")
+    public String showChangePatientView(@ModelAttribute("patientId") PatientId id, Model model) {
         model.addAttribute("patient", patientService.getPatientById(id.getId()));
         model.addAttribute("values", new FormValues());
         return "change-patient-view";
+    }
+
+    @PostMapping("/delete-patient")
+    public String deletePatient(@ModelAttribute("patientId") PatientId id){
+        Patient patient = patientService.getPatientById(id.getId());
+        patientService.deletePatient(patient);
+        return "redirect:/patients";
     }
 
     @PostMapping("/save-patient-changes")
