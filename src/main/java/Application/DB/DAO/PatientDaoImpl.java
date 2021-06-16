@@ -21,8 +21,21 @@ class PatientDaoImpl implements PatientDAO{
     }
 
     @Override
+    public Patient getById(int id) {
+        return sessionFactory.getCurrentSession().get(Patient.class, id);
+    }
+
+    @Override
     public void save(Patient patient) {
         sessionFactory.getCurrentSession().persist(patient);
     }
+
+    @Override
+    public void update(Patient patient) {
+        sessionFactory.getCurrentSession().update(patient);
+    }
+
+
+
 
 }

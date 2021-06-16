@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddPatientFormValues {
+public class FormValues {
     private Map<String, String> sexes;
 
-    public AddPatientFormValues() {
+    public FormValues() {
         sexes = new HashMap<>();
         sexes.put("M", "Male");
         sexes.put("F", "Female");

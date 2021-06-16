@@ -19,7 +19,7 @@
         <h1>Patient Details</h1>
         <button class="add-button"  onclick="window.location.href = 'add-patient'">Add patient</button>
         <button class="delete-button"  onclick="window.location.href = 'add-patient'">Delete patient</button>
-        <button class="update-button"  onclick="window.location.href = 'add-patient'">Update patient</button>
+        <button class="update-button"  onclick="window.location.href = 'choose-patient'">Update patient</button>
         <br><br>
         <table>
             <tr>
