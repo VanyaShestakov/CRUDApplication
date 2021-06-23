@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 
 @Controller
 public class MainController {
@@ -26,24 +25,29 @@ public class MainController {
 
     @GetMapping("/patients")
     public String showTable(Model model) {
-        model.addAttribute("patients", patientService.getAll());
+        model.addAttribute("patients", patientService.getAllPatients());
         return "patients-view";
     }
 
     @GetMapping("/add-patient")
-    public String showAddPatientView(Model model) {
+    public String showAddPatientView(Model model, @RequestParam("operation") String operation) {
+        model.addAttribute("operation", operation);
         model.addAttribute("patient", new Patient());
         model.addAttribute("values", new FormValues());
-        return "add-patient-view";
+        return "patient-info-view";
     }
 
-    @PostMapping("/save-patient")
+    @PostMapping("/saveorupdate-patient")
     public String savePatient(@ModelAttribute @Valid Patient patient, BindingResult result,
                               @ModelAttribute("values") FormValues values) {
         if (result.hasErrors()) {
-            return "add-patient-view";
+            return "patient-info-view";
         }
-        patientService.savePatient(patient);
+        if (patient.getId() == 0) {
+            patientService.savePatient(patient);
+        } else {
+            patientService.updatePatient(patient);
+        }
         return "redirect:/patients";
     }
 
@@ -55,11 +59,13 @@ public class MainController {
         return "choose-patient-view";
     }
 
-    @GetMapping("/change-patient")
-    public String showChangePatientView(@ModelAttribute("patientId") PatientId id, Model model) {
+    @PostMapping("/change-patient")
+    public String showChangePatientView(@ModelAttribute("patientId") PatientId id, Model model,
+                                        @RequestParam("operation") String operation ) {
         model.addAttribute("patient", patientService.getPatientById(id.getId()));
         model.addAttribute("values", new FormValues());
-        return "change-patient-view";
+        model.addAttribute("operation", operation);
+        return "patient-info-view";
     }
 
     @PostMapping("/delete-patient")
@@ -75,7 +81,7 @@ public class MainController {
         if (result.hasErrors()) {
             return "change-patient-view";
         }
-        patientService.saveChanges(patient);
+        patientService.updatePatient(patient);
         return "redirect:/patients";
     }
 

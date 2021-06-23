@@ -15,8 +15,15 @@
 </head>
 <body>
     <div align="center">
-        <h1>Add Patient</h1>
-        <form:form action="save-patient" method="post" modelAttribute="patient">
+        <c:if test="${operation == 'Add'}">
+            <h1>Add Patient</h1>
+        </c:if>
+
+        <c:if test="${operation == 'Update'}">
+            <h1>Update Patient</h1>
+        </c:if>
+        <form:form action="saveorupdate-patient" method="post" modelAttribute="patient">
+            <form:hidden path="id"/>
             Name:<br><form:input path="name"/>
             <br>
                 <p>
@@ -53,7 +60,15 @@
                     <form:errors style="color:#ff0000" path="age"/>
                 </p>
             <br>
-            <button class="add-button" type="submit">Add</button>
+            <button class="add-button" type="submit">
+                <c:if test="${operation == 'Add'}">
+                    Add
+                </c:if>
+
+                <c:if test="${operation == 'Update'}">
+                    Update
+                </c:if>
+            </button>
         </form:form>
     </div>
 

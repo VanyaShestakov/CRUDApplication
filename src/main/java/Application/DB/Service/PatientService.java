@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface PatientService {
-    public List<Patient> getAll();
+    public List<Patient> getAllPatients();
 
     public Patient getPatientById(int id);
 
@@ -14,7 +14,7 @@ public interface PatientService {
 
     public void savePatient(Patient patient);
 
-    public void saveChanges(Patient patient);
+    public void updatePatient(Patient patient);
 
     public void deletePatient(Patient patient);
 }

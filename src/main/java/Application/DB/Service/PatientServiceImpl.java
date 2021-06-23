@@ -5,9 +5,10 @@ import Application.DB.Entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientServiceImpl implements PatientService{
@@ -17,7 +18,7 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     @Transactional
-    public List<Patient> getAll() {
+    public List<Patient> getAllPatients() {
         return patientDAO.getAll();
     }
 
@@ -37,17 +38,12 @@ public class PatientServiceImpl implements PatientService{
     @Override
     @Transactional
     public Map<Integer, String> getFullNames() {
-        Map<Integer, String> fullNames = new HashMap<>();
-        List<Patient> patients = getAll();
-        for (Patient patient: patients) {
-           fullNames.put(patient.getId(), patient.getName() + " " + patient.getSurname());
-        }
-        return fullNames;
+        return getAllPatients().stream().collect(Collectors.toMap(Patient::getId, patient -> patient.getName() + " " + patient.getSurname()));
     }
 
     @Override
     @Transactional
-    public void saveChanges(Patient patient) {
+    public void updatePatient(Patient patient) {
         patientDAO.update(patient);
     }
 

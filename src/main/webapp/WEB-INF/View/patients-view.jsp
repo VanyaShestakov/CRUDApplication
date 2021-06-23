@@ -18,15 +18,18 @@
 <body>
     <div align="center">
         <h1>Patient Details</h1>
-        <c:url var="deleteButton" value="/choose-patient">
+        <c:url var="add" value="/add-patient">
+            <c:param name="operation" value="Add"/>
+        </c:url>
+        <c:url var="delete" value="/choose-patient">
             <c:param name="operation" value="Delete"/>
         </c:url>
-        <c:url var="updateButton" value="/choose-patient">
+        <c:url var="update" value="/choose-patient">
             <c:param name="operation" value="Update"/>
         </c:url>
-        <input class="add-button" type="button" onclick="window.location.href = 'add-patient'" value="Add patient">
-        <input class="delete-button" type="button" onclick="window.location.href = '${deleteButton}'" value="Delete patient">
-        <input class="update-button" type="button" onclick="window.location.href = '${updateButton}'" value="Update patient">
+        <input class="add-button" type="button" onclick="window.location.href = '${add}'" value="Add patient">
+        <input class="delete-button" type="button" onclick="window.location.href = '${delete}'" value="Delete patient">
+        <input class="update-button" type="button" onclick="window.location.href = '${update}'" value="Update patient">
         <br><br>
         <table>
             <tr>

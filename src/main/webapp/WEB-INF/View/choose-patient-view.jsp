@@ -17,8 +17,6 @@
 <body>
 <div align="center">
     <h1>Select Patient</h1>
-
-
     <c:if test="${operation == 'Delete'}">
         <form:form method="post" action="delete-patient" modelAttribute="patientId">
             <form:select path="id">
@@ -28,11 +26,14 @@
         </form:form>
     </c:if>
     <c:if test="${operation == 'Update'}">
-        <form:form method="get" action="change-patient" modelAttribute="patientId">
+        <c:url var="update" value="/change-patient">
+            <c:param name="operation" value="Update"/>
+        </c:url>
+        <form:form method="post" action="${update}" modelAttribute="patientId">
             <form:select path="id">
                 <form:options items="${fullNames}"/>
             </form:select>
-            <button class="Update-button" type="submit">Select</button>
+            <button class="Update-button" type="submit">Update</button>
         </form:form>
     </c:if>
 
