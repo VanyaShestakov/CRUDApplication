@@ -53,5 +53,11 @@ public class PatientServiceImpl implements PatientService{
         patientDAO.delete(patient);
     }
 
+    @Override
+    @Transactional
+    public List<Patient> getPatientsBySex(String sex) {
+        return getAllPatients().stream().filter(patient -> patient.getSex().equals(sex)).collect(Collectors.toList());
+    }
+
 
 }
