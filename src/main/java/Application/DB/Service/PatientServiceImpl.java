@@ -38,7 +38,8 @@ public class PatientServiceImpl implements PatientService{
     @Override
     @Transactional
     public Map<Integer, String> getFullNames() {
-        return getAllPatients().stream().collect(Collectors.toMap(Patient::getId, patient -> patient.getName() + " " + patient.getSurname()));
+        return getAllPatients().stream()
+                .collect(Collectors.toMap(Patient::getId, patient -> patient.getName() + " " + patient.getSurname()));
     }
 
     @Override
@@ -56,7 +57,15 @@ public class PatientServiceImpl implements PatientService{
     @Override
     @Transactional
     public List<Patient> getPatientsBySex(String sex) {
-        return getAllPatients().stream().filter(patient -> patient.getSex().equals(sex)).collect(Collectors.toList());
+        return getAllPatients().stream()
+                .filter(patient -> patient.getSex().equals(sex))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public boolean contains(int id) {
+        return patientDAO.getById(id) != null;
     }
 
 

@@ -31,6 +31,7 @@ public class MainController {
 
     @GetMapping("/add-patient")
     public String showAddPatientView(Model model, @RequestParam("operation") String operation) {
+        Integer.parseInt("ghj");
         model.addAttribute("operation", operation);
         model.addAttribute("patient", new Patient());
         model.addAttribute("values", new FormValues());

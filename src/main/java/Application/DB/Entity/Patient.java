@@ -106,5 +106,14 @@ public class Patient {
     public void setSex(String sex) {
         this.sex = sex;
     }
+
+    public boolean isFull() {
+        return
+        this.name != null &&
+        this.surname != null &&
+        this.city != null &&
+        this.diagnosis != null &&
+        this.sex != null;
+    }
 }
 

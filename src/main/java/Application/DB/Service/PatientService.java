@@ -19,4 +19,6 @@ public interface PatientService {
     public void deletePatient(Patient patient);
 
     public List<Patient> getPatientsBySex(String sex);
+
+    public boolean contains(int id);
 }
