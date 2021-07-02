@@ -2,7 +2,6 @@ package Application.REST.Controller;
 
 import Application.DB.Entity.Patient;
 import Application.DB.Service.PatientService;
-import Application.REST.Exceptions.IncorrectSexValueException;
 import Application.REST.Exceptions.IncorrectPatientException;
 import Application.REST.Exceptions.NoSuchPatientException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +59,14 @@ public class RESTController {
                     ("For PUT request all patient fields must be not null");
         }
         patientService.updatePatient(patient);
+    }
+
+    @DeleteMapping("/patients/id={id}")
+    public void deletePatient(@PathVariable int id) {
+        if (!patientService.contains(id)) {
+            throw new NoSuchPatientException
+                    ("Patient with id=" + id + " not found");
+        }
+        patientService.deletePatient(patientService.getPatientById(id));
     }
 }

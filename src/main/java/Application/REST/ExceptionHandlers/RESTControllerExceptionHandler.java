@@ -16,6 +16,7 @@ public class RESTControllerExceptionHandler {
     public ResponseEntity<ExceptionInfo> handleNoSuchPatientException(NoSuchPatientException exception) {
         ExceptionInfo exceptionInfo = new ExceptionInfo();
         exceptionInfo.setInfo(exception.getMessage());
+        exceptionInfo.setExceptionName(exception.getClass().getName());
         return new ResponseEntity<>(exceptionInfo, HttpStatus.NOT_FOUND);
     }
 
@@ -23,6 +24,7 @@ public class RESTControllerExceptionHandler {
     public ResponseEntity<ExceptionInfo> handleNumberFormatException(NumberFormatException exception) {
         ExceptionInfo exceptionInfo = new ExceptionInfo();
         exceptionInfo.setInfo("Incorrect " + exception.getMessage());
+        exceptionInfo.setExceptionName(exception.getClass().getName());
         return new ResponseEntity<>(exceptionInfo, HttpStatus.BAD_REQUEST);
     }
 
@@ -30,6 +32,7 @@ public class RESTControllerExceptionHandler {
     public ResponseEntity<ExceptionInfo> handleIncorrectPatientException(IncorrectPatientException exception) {
         ExceptionInfo exceptionInfo = new ExceptionInfo();
         exceptionInfo.setInfo(exception.getMessage());
+        exceptionInfo.setExceptionName(exception.getClass().getName());
         return new ResponseEntity<>(exceptionInfo, HttpStatus.BAD_REQUEST);
     }
 
