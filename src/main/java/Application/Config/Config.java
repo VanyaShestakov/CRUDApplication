@@ -1,11 +1,11 @@
-package Config;
+package Application.Config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.hibernate.SessionFactory;
-import org.hibernate.dialect.MySQLDialect;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
@@ -21,7 +20,23 @@ import java.util.Properties;
 @ComponentScan("Application")
 @EnableTransactionManagement
 @EnableWebMvc
+@PropertySource({
+        "classpath:DB.properties",
+        "classpath:ViewResolver.properties"})
 public class Config {
+
+    @Value("${driverClass}")
+    private String driverClass;
+
+    @Value("${jdbcUrl}")
+    private String jdbcUrl;
+
+    @Value("${user}")
+    private String user;
+
+    @Value("${password}")
+    private String password;
+
 
     @Bean
     public ViewResolver viewResolver() {
@@ -35,10 +50,10 @@ public class Config {
     public ComboPooledDataSource dataSource() {
         var dataSource = new ComboPooledDataSource();
         try {
-            dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/hospital_db?useSSL=false&amp;serverTimezone=UTC");
-            dataSource.setUser("user");
-            dataSource.setPassword("user");
+            dataSource.setDriverClass(driverClass);
+            dataSource.setJdbcUrl(jdbcUrl);
+            dataSource.setUser(user);
+            dataSource.setPassword(password);
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
@@ -57,6 +72,7 @@ public class Config {
         return factory;
     }
 
+    @Bean
     public HibernateTransactionManager transactionManager() {
         var transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
