@@ -1,11 +1,13 @@
 package Application.Config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -21,28 +23,19 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableWebMvc
 @PropertySource({
-        "classpath:DB.properties",
-        "classpath:ViewResolver.properties"})
+        "classpath:Properties/DB.properties",
+        "classpath:Properties/ViewResolver.properties",
+        "classpath:Properties/SessionFactory.properties"})
 public class Config {
 
-    @Value("${driverClass}")
-    private String driverClass;
-
-    @Value("${jdbcUrl}")
-    private String jdbcUrl;
-
-    @Value("${user}")
-    private String user;
-
-    @Value("${password}")
-    private String password;
-
+    @Autowired
+    Environment env;
 
     @Bean
     public ViewResolver viewResolver() {
         var resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/View/");
-        resolver.setSuffix(".jsp");
+        resolver.setPrefix(env.getRequiredProperty("prefix"));
+        resolver.setSuffix(env.getRequiredProperty("suffix"));
         return resolver;
     }
 
@@ -50,10 +43,10 @@ public class Config {
     public ComboPooledDataSource dataSource() {
         var dataSource = new ComboPooledDataSource();
         try {
-            dataSource.setDriverClass(driverClass);
-            dataSource.setJdbcUrl(jdbcUrl);
-            dataSource.setUser(user);
-            dataSource.setPassword(password);
+            dataSource.setDriverClass(env.getRequiredProperty("driverClass"));
+            dataSource.setJdbcUrl(env.getRequiredProperty("jdbcUrl"));
+            dataSource.setUser(env.getRequiredProperty("user"));
+            dataSource.setPassword(env.getRequiredProperty("password"));
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
@@ -64,10 +57,10 @@ public class Config {
     public LocalSessionFactoryBean sessionFactory() {
         var factory = new LocalSessionFactoryBean();
         factory.setDataSource(dataSource());
-        factory.setPackagesToScan("Application.DB.Entity");
+        factory.setPackagesToScan(env.getRequiredProperty("packagesToScan"));
         Properties props = new Properties();
-        props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        props.put("hibernate.show_sql", true);
+        props.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
+        props.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
         factory.setHibernateProperties(props);
         return factory;
     }
